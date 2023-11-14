@@ -1,4 +1,4 @@
-package springbootapi.entities;
+package com.ecommer.springbootapi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

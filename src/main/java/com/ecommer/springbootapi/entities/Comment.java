@@ -1,4 +1,4 @@
-package springbootapi.entities;
+package com.ecommer.springbootapi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,9 +17,22 @@ public class Comment extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "review")
     private String review;
 
+    @Column(name = "rate")
     private Integer rate;
 
+    @Column(name = "status")
     private String status;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private User customer;
 }

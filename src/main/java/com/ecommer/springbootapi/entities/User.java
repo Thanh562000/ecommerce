@@ -1,4 +1,4 @@
-package springbootapi.entities;
+package com.ecommer.springbootapi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,15 +11,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user_profile")
-public class Profile extends BaseEntity{
+@Table(name = "users")
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String image;
+    private String name;
 
-    private String address;
+    private String userName;
 
-    private String phone;
+    private String email;
+
+    private String password;
 }

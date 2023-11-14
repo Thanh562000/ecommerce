@@ -1,4 +1,4 @@
-package springbootapi.entities;
+package com.ecommer.springbootapi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,9 +17,17 @@ public class CartItem extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "quantity")
     private Integer quantity;
 
+    @Column(name = "status")
     private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private User customer;
 }

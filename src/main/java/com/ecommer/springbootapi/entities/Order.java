@@ -1,4 +1,4 @@
-package springbootapi.entities;
+package com.ecommer.springbootapi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,19 +11,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "order_products")
-public class OrderProducts  extends BaseEntity{
+@Table(name = "orders")
+public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double productPrice;
+    private String name;
 
-    private Integer productQuantity;
+    private String email;
+
+    private String phone;
+
+    private String address;
 
     private double totalPrice;
 
-    private  String note;
+    private String note;
 
     private String status;
 }

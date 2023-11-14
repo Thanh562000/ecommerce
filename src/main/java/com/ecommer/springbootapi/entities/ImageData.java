@@ -1,4 +1,4 @@
-package springbootapi.entities;
+package com.ecommer.springbootapi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,15 +11,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "faqs")
-public class Faq  extends BaseEntity{
+@Table(name = "product_image_gallaery")
+public class ImageData extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String question;
+    private String name;
 
-    private String answer;
+    private String type;
 
-    private String status;
+    private byte[] imageData;
+
+
 }

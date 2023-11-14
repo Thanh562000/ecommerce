@@ -1,4 +1,4 @@
-package springbootapi.entities;
+package com.ecommer.springbootapi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,15 +17,21 @@ public class Contact extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "phone")
     private String phone;
 
+    @Column(name = "subject")
     private String subject;
 
+    @Column(name = "message")
     private String message;
 
+    @Column(name = "ip_address")
     private String ipAddress;
 
+    @Column(name = "Status")
     private String status;
 }
