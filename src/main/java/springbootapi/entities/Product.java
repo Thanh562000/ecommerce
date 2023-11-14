@@ -16,10 +16,21 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_name")
-    private Integer productId;
+    private Long productId;
 
+    private String title;
 
-    private String productName;
+    private String keywords;
 
+    private String description;
 
+    private String detail;
+
+    private double price;
+
+    private Integer quantity;
+
+    private String status;
+
+    private String image;
 }
