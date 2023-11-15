@@ -32,6 +32,6 @@ public class Contact extends BaseEntity {
     @Column(name = "ip_address")
     private String ipAddress;
 
-    @Column(name = "Status")
+    @Column(name = "status")
     private String status;
 }

@@ -17,11 +17,17 @@ public class ImageData extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "type")
     private String type;
 
+    @Column(name = "image_data", length = 1000)
+    @Lob
     private byte[] imageData;
 
-
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

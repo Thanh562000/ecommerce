@@ -17,9 +17,12 @@ public class Faq  extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "question")
     private String question;
 
+    @Column(name = "answer")
     private String answer;
 
+    @Column(name = "ststus")
     private String status;
 }
