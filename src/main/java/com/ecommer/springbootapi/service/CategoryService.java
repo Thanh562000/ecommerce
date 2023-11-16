@@ -1,16 +1,17 @@
 package com.ecommer.springbootapi.service;
 
-import com.ecommer.springbootapi.dto.request.CategoryRequestDto;
+import com.ecommer.springbootapi.dto.request.CategoryRequest;
 import com.ecommer.springbootapi.dto.response.CategoryResponse;
+import com.ecommer.springbootapi.dto.response.CommonResponse;
 
 public interface CategoryService {
-    CategoryRequestDto createCategory(CategoryRequestDto categoryRequestDto);
+    CategoryRequest createCategory(CategoryRequest categoryRequest);
 
-    CategoryResponse getAllCategory(int pageNo, int pageSize, String sortBy, String sortDir);
+    CommonResponse getAllCategory(int pageNo, int pageSize, String sortBy, String sortDir);
 
-    CategoryRequestDto getCategoryById(Long categoryId);
+    CategoryRequest getCategoryById(Long categoryId);
 
-    CategoryRequestDto updateCategory(CategoryRequestDto categoryRequestDto, Long categoryId);
+    CategoryRequest updateCategory(CategoryRequest categoryRequest, Long categoryId);
 
     void deleteCategory(Long categoryId);
 }
