@@ -1,9 +1,9 @@
 package com.ecommer.springbootapi.service;
 
-import com.ecommer.springbootapi.dto.request.SettingRequest;
+import com.ecommer.springbootapi.dto.request.SettingDto;
 
 public interface SettingService {
-    SettingRequest addSetting(SettingRequest settingRequest);
+    SettingDto addSetting(SettingDto settingDto);
 
-    SettingRequest updateSetting(SettingRequest settingRequest, Long id);
+    SettingDto updateSetting(SettingDto settingDto, Long id);
 }

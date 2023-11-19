@@ -1,6 +1,6 @@
 package com.ecommer.springbootapi.service.Impl;
 
-import com.ecommer.springbootapi.dto.request.SettingRequest;
+import com.ecommer.springbootapi.dto.request.SettingDto;
 import com.ecommer.springbootapi.entities.Setting;
 import com.ecommer.springbootapi.exception.ApiException;
 import com.ecommer.springbootapi.exception.ResourceNotFoundException;
@@ -22,10 +22,10 @@ public class SettingServiceImpl implements SettingService {
     private SettingRepository settingRepository;
 
     @Override
-    public SettingRequest addSetting(SettingRequest settingRequest) {
+    public SettingDto addSetting(SettingDto settingDto) {
         Optional<Setting> setting = settingRepository.findAll().stream().findFirst();
         if (!setting.isPresent()) {
-            Setting firstSetting = mapToEntity(settingRequest);
+            Setting firstSetting = mapToEntity(settingDto);
             Setting save = settingRepository.save(firstSetting);
             return mapToDto(save);
         } else {
@@ -34,38 +34,38 @@ public class SettingServiceImpl implements SettingService {
     }
 
     @Override
-    public SettingRequest updateSetting(SettingRequest settingRequest, Long id) {
+    public SettingDto updateSetting(SettingDto settingDto, Long id) {
         Setting setting = settingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Setting", id));
-        setting.setTitle(settingRequest.getTitle());
-        setting.setKeywords(settingRequest.getKeywords());
-        setting.setDescription(settingRequest.getDescription());
-        setting.setCompany(settingRequest.getCompany());
-        setting.setAddress(settingRequest.getAddress());
-        setting.setPhone(settingRequest.getPhone());
-        setting.setFax(settingRequest.getFax());
-        setting.setEmail(settingRequest.getEmail());
-        setting.setSmtpEmail(settingRequest.getSmtpEmail());
-        setting.setSmtpPassword(settingRequest.getSmtpPassword());
-        setting.setSmtpPort(settingRequest.getSmtpPort());
-        setting.setFacebook(settingRequest.getFacebook());
-        setting.setInstagram(settingRequest.getInstagram());
-        setting.setTwitter(settingRequest.getTwitter());
-        setting.setAboutUs(settingRequest.getAboutUs());
-        setting.setContact(settingRequest.getContact());
-        setting.setReference(settingRequest.getReference());
-        setting.setStatus(settingRequest.getStatus());
+        setting.setTitle(settingDto.getTitle());
+        setting.setKeywords(settingDto.getKeywords());
+        setting.setDescription(settingDto.getDescription());
+        setting.setCompany(settingDto.getCompany());
+        setting.setAddress(settingDto.getAddress());
+        setting.setPhone(settingDto.getPhone());
+        setting.setFax(settingDto.getFax());
+        setting.setEmail(settingDto.getEmail());
+        setting.setSmtpEmail(settingDto.getSmtpEmail());
+        setting.setSmtpPassword(settingDto.getSmtpPassword());
+        setting.setSmtpPort(settingDto.getSmtpPort());
+        setting.setFacebook(settingDto.getFacebook());
+        setting.setInstagram(settingDto.getInstagram());
+        setting.setTwitter(settingDto.getTwitter());
+        setting.setAboutUs(settingDto.getAboutUs());
+        setting.setContact(settingDto.getContact());
+        setting.setReference(settingDto.getReference());
+        setting.setStatus(settingDto.getStatus());
 
         settingRepository.save(setting);
         return mapToDto(setting);
     }
 
-    private SettingRequest mapToDto(Setting setting) {
-        SettingRequest settingRequest = modelMapper.map(setting, SettingRequest.class);
-        return settingRequest;
+    private SettingDto mapToDto(Setting setting) {
+        SettingDto settingDto = modelMapper.map(setting, SettingDto.class);
+        return settingDto;
     }
 
-    private Setting mapToEntity(SettingRequest settingRequest) {
-        Setting setting = modelMapper.map(settingRequest, Setting.class);
+    private Setting mapToEntity(SettingDto settingDto) {
+        Setting setting = modelMapper.map(settingDto, Setting.class);
         return setting;
     }
 }

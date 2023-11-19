@@ -1,7 +1,6 @@
 package com.ecommer.springbootapi.service.Impl;
 
-import com.ecommer.springbootapi.dto.request.CategoryRequest;
-import com.ecommer.springbootapi.dto.response.CategoryResponse;
+import com.ecommer.springbootapi.dto.request.CategoryDto;
 import com.ecommer.springbootapi.dto.response.CommonResponse;
 import com.ecommer.springbootapi.entities.Category;
 import com.ecommer.springbootapi.exception.ResourceNotFoundException;
@@ -26,9 +25,9 @@ public class CategoryServiceImpl implements CategoryService {
     private final CommonService commonService;
 
     @Override
-    public CategoryRequest createCategory(CategoryRequest categoryRequest) {
+    public CategoryDto createCategory(CategoryDto categoryDto) {
         //convert dto -> entity
-        Category category = convertToEntity(categoryRequest);
+        Category category = convertToEntity(categoryDto);
         //save entity
         Category cate = categoryRepository.save(category);
         //convert entity -> dto
@@ -42,33 +41,32 @@ public class CategoryServiceImpl implements CategoryService {
         Page<Category> categories = categoryRepository.findAll(pageable);
 
         List<Category> categoryList = categories.getContent();
-        List<CategoryRequest> categoryRequestList = categoryList.stream()
+        List<CategoryDto> categoryDtoList = categoryList.stream()
                 .map(category -> convertToDto(category))
                 .toList();
 
-        CommonResponse categoryResponse = commonService.getResponseContent(categories, categoryRequestList);
-        return categoryResponse;
+        return commonService.getResponseContent(categories, categoryDtoList);
     }
 
     @Override
-    public CategoryRequest getCategoryById(Long categoryId) {
+    public CategoryDto getCategoryById(Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", categoryId));
         return convertToDto(category);
     }
 
     @Override
-    public CategoryRequest updateCategory(CategoryRequest categoryRequest, Long categoryId) {
+    public CategoryDto updateCategory(CategoryDto categoryDto, Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", categoryId));
-        category.setTitle(categoryRequest.getTitle());
-        category.setDescription(categoryRequest.getDescription());
-        category.setKeywords(categoryRequest.getKeywords());
-        category.setStatus(categoryRequest.getStatus());
+        category.setTitle(categoryDto.getTitle());
+        category.setDescription(categoryDto.getDescription());
+        category.setKeywords(categoryDto.getKeywords());
+        category.setStatus(categoryDto.getStatus());
         Category updateCategory = categoryRepository.save(category);
 
-        CategoryRequest request = convertToDto(updateCategory);
-        return request;
+        return convertToDto(updateCategory);
+
     }
 
     @Override
@@ -78,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.delete(category);
     }
 
-    public Category convertToEntity(CategoryRequest requestDto) {
+    public Category convertToEntity(CategoryDto requestDto) {
         Category category = new Category();
         category.setDescription(requestDto.getDescription());
         category.setId(requestDto.getId());
@@ -89,8 +87,8 @@ public class CategoryServiceImpl implements CategoryService {
         return category;
     }
 
-    public CategoryRequest convertToDto(Category category) {
-        CategoryRequest requestDto = new CategoryRequest();
+    public CategoryDto convertToDto(Category category) {
+        CategoryDto requestDto = new CategoryDto();
         requestDto.setId(category.getId());
         requestDto.setTitle(category.getTitle());
         requestDto.setKeywords(category.getKeywords());

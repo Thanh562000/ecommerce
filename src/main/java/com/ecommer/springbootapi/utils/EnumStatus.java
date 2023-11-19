@@ -1,5 +1,8 @@
 package com.ecommer.springbootapi.utils;
 
-public class EnumStatus {
-
+public enum EnumStatus {
+    ACTIVE,
+    INACTIVE,
+    PENDING,
+    FAILED
 }

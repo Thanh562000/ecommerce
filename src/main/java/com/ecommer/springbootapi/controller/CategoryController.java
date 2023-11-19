@@ -1,6 +1,6 @@
 package com.ecommer.springbootapi.controller;
 
-import com.ecommer.springbootapi.dto.request.CategoryRequest;
+import com.ecommer.springbootapi.dto.request.CategoryDto;
 import com.ecommer.springbootapi.dto.response.CommonResponse;
 import com.ecommer.springbootapi.service.CategoryService;
 import com.ecommer.springbootapi.utils.Constant;
@@ -22,14 +22,14 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryRequest> getById(@PathVariable Long id) {
-        CategoryRequest categoryRequest = categoryService.getCategoryById(id);
-        return ResponseEntity.ok(categoryRequest);
+    public ResponseEntity<CategoryDto> getById(@PathVariable Long id) {
+        CategoryDto categoryDto = categoryService.getCategoryById(id);
+        return ResponseEntity.ok(categoryDto);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CategoryRequest> create(@RequestBody CategoryRequest categoryRequest) {
-        CategoryRequest request = categoryService.createCategory(categoryRequest);
+    public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto categoryDto) {
+        CategoryDto request = categoryService.createCategory(categoryDto);
         return new ResponseEntity<>(request, HttpStatus.CREATED);
     }
 
