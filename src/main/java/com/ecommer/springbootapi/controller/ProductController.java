@@ -49,7 +49,7 @@ public class ProductController {
         return new ResponseEntity<>(responseProduct, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{categoryId}/update/{productId}")
+    @PutMapping("/{categoryId}/update/{productId}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long categoryId,
                                                     @RequestBody ProductDto productDto,
                                                     @PathVariable Long productId
