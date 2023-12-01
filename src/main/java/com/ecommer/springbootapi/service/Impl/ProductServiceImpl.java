@@ -9,9 +9,9 @@ import com.ecommer.springbootapi.exception.ResourceNotFoundException;
 import com.ecommer.springbootapi.repository.CategoryRepository;
 import com.ecommer.springbootapi.repository.ProductRepository;
 import com.ecommer.springbootapi.service.CommonService;
+import com.ecommer.springbootapi.service.MapperService;
 import com.ecommer.springbootapi.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,21 +38,21 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
     private CommonService commonService;
 
+    @Autowired
+    private MapperService<Product, ProductDto> mapperService;
+
 
     @Override
     public ProductDto createProduct(ProductDto productDto, MultipartFile multipartFile) {
         productDto.setImage(uploadProductImage(multipartFile));
-        Product product = mapToEntity(productDto);
+        Product product = mapperService.mapToEntity(productDto);
         Product createProduct = productRepository.save(product);
-        return mapToDto(createProduct);
+        return mapperService.mapToDto(createProduct);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product> list = products.getContent();
 
         List<ProductDto> productList = list.stream()
-                .map(v -> mapToDto(v))
+                .map(v -> mapperService.mapToDto(v))
                 .toList();
 
         return commonService.getResponseContent(products, productList);
@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto getById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product", id));
-        return mapToDto(product);
+        return mapperService.mapToDto(product);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product update = productRepository.save(product);
 
-        return mapToDto(update);
+        return mapperService.mapToDto(update);
     }
 
     @Override
@@ -109,12 +109,12 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto saveProductByCategory(Long categoryId, ProductDto productDto) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category", categoryId));
 
-        Product product = mapToEntity(productDto);
+        Product product = mapperService.mapToEntity(productDto);
 
         product.setCategory(category);
         Product create = productRepository.save(product);
 
-        return mapToDto(create);
+        return mapperService.mapToDto(create);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class ProductServiceImpl implements ProductService {
             throw new ApiException("Product not found", HttpStatus.BAD_REQUEST);
 
         }
-        return products.stream().map(v -> mapToDto(v)).toList();
+        return products.stream().map(v -> mapperService.mapToDto(v)).toList();
     }
 
     private String uploadProductImage(MultipartFile file) {
@@ -142,11 +142,4 @@ public class ProductServiceImpl implements ProductService {
         return productDto.getImage();
     }
 
-    private ProductDto mapToDto(Product product) {
-        return modelMapper.map(product, ProductDto.class);
-    }
-
-    private Product mapToEntity(ProductDto productDto) {
-        return modelMapper.map(productDto, Product.class);
-    }
 }
