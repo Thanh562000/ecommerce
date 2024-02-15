@@ -20,7 +20,7 @@ import java.util.Set;
 public class Category extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryId;
+    private Long id;
 
     @Column(name = "title")
     private String title;
