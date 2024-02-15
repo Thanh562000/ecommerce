@@ -4,7 +4,7 @@ import com.ecommer.springbootapi.dto.request.SettingDto;
 import com.ecommer.springbootapi.entities.Setting;
 import com.ecommer.springbootapi.repository.SettingRepository;
 import com.ecommer.springbootapi.service.SettingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +13,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/setting")
+@RequiredArgsConstructor
 public class SettingController {
-    @Autowired
-    private SettingService settingService;
+    private final SettingService settingService;
 
-    @Autowired
-    private SettingRepository settingRepository;
+    private final SettingRepository settingRepository;
 
     @PostMapping("/create")
     public ResponseEntity<SettingDto> create(@RequestBody SettingDto settingDto) {

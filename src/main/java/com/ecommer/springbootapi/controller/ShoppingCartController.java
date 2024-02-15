@@ -19,7 +19,7 @@ public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
-    @GetMapping("findByCustomer")
+    @GetMapping("/findByCustomer")
     public CartItemResponse findCustomerId(User customer) {
         return shoppingCartService.findByCustomer(customer);
     }
